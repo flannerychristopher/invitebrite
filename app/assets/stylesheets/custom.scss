@@ -1,3 +1,30 @@
+body, header {
+  background-color: #fff;
+  font-family: 'Libre Fanklin';
+}
+#navbar-custom {
+  background-color: #fff;
+}
+
+
+#logo, h1 {
+  color: #f6682f;
+}
+
+button {
+ display:inline-block;
+ border-radius:5px;
+ padding:10px 20px;
+ border-width:2px;
+ border-style:solid;
+ font-size:12px;
+ font-weight:700;
+ text-align:center;
+ cursor:pointer
+}
+
+/* forms */
+
 label, input {
   display: block;
 }

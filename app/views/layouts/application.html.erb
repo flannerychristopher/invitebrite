@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>invitebrite</title>
+    <title>Invitebrite</title>
     <%= csrf_meta_tags %>
     <!-- [if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
@@ -12,6 +12,9 @@
   </head>
 
   <body>
+
+    <%= render 'layouts/navbar' %>
+
     <div class="container">
 
       <% flash.each do |message_type, message| %>

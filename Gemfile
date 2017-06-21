@@ -13,6 +13,7 @@ gem 'faker', '~> 1.7', '>= 1.7.3'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 
 gem 'rails_12factor', '~> 0.0.3'
 # Use Puma as the app server
