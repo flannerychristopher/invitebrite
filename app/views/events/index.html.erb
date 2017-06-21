@@ -2,4 +2,10 @@
 
 <% @events.each do |event| %>
   <h3><%= event.title %></h3>
+  <small>
+    <%= event.location %>,
+    <%= event.date.to_date.to_formatted_s :long_ordinal %>
+  </small>
+  <p><%= event.description %></p>
+  <hr>
 <% end %>
