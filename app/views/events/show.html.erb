@@ -1,0 +1,11 @@
+<h1><%= @event.title %></h1>
+<p>created by: <%= @event.creator.name %></p>
+
+<p>Date: <%= @event.date.to_date.to_formatted_s :long_ordinal %></p>
+
+<p>Location: <%= @event.location %></p>
+
+<h3>Description</h3>
+  <p><%= @event.description %></p>
+
+<h3><%=
