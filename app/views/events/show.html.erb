@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">
 
     <h1><%= @event.title %></h1>
     <p>created by: <%= @event.creator.name %></p>
@@ -20,16 +20,21 @@
         <%= f.submit "Invite", class: "btn" %>
       <% end %>
     <% end %>
+  </div>
 
+
+
+  <div class="col-lg-2 col-md-2">
 
     <% if @event.attendees.any? %>
-    <h3>Attendees<h3>
-      <% @event.attendees.each do |attendee| %>
-        <p>
-          <%= attendee.name %>
-        </p>
+      <h3>Attendees</h3>
+        <ul>
+          <% @event.attendees.each do |attendee| %>
+            <li>
+              <%= link_to "#{attendee.name}", user_path(attendee) %>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
-    <% end %>
-    
+    </div>
   </div>
-</div>

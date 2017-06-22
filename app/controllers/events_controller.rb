@@ -2,7 +2,14 @@ class EventsController < ApplicationController
   before_action :logged_in_user, only: [:create]
 
   def index
-    @events = Event.all
+    #@events = Event.all
+    #@events = Event.paginate(page: params[:page], per_page: 5)
+    @future_events = Event.future.paginate(page: params[:page], per_page: 5)
+    @past_events = Event.past.reverse.last(5)
+  end
+
+  def past
+    @past_events = Event.past.paginate(page: params[:page], per_page: 5)
   end
 
   def new

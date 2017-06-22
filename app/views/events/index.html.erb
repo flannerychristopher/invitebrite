@@ -1,29 +1,61 @@
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
 
-    <h1>All Events</h1>
 
-    <h3>Upcoming Events<h3>
-      <% @events.future.each do |event| %>
-        <h3><%= event.title %></h3>
+  <div class="col-lg-6">
+    <h1>Upcoming Events</h1>
+    <%= will_paginate @future_events %>
+
+      <% @future_events.each do |event| %>
+
+        <h3><%= link_to "#{event.title}", event_path(event) %></h3>
+
         <small>
-          <%= event.location %>,
-          <%= event.date.to_date.to_formatted_s :long_ordinal %>
+          <ul>
+            <li>
+              <%= event.location %>
+            </li>
+            <li>
+              <%= event.date.to_date.to_formatted_s :long_ordinal %>,
+              <%= event.date.strftime("%I:%M %p") %>
+            </li>
+          </ul>
         </small>
+
         <p><%= event.description %></p>
+
         <hr>
       <% end %>
+</div>
 
-      <h3>Past Events<h3>
-        <% @events.past.each do |event| %>
-          <h3><%= event.title %></h3>
+
+
+  <div class="col-lg-6">
+
+      <h1>Past Events</h1>
+
+        <div class="row pagination">
+          <span>
+            <%= link_to "see more past events", past_path %>
+          </span>
+        </div>
+
+        <% @past_events.each do |event| %>
+          <h3><%= link_to "#{event.title}", event_path(event) %></h3>
+
           <small>
-            <%= event.location %>,
-            <%= event.date.to_date.to_formatted_s :long_ordinal %>
+            <ul>
+              <li>
+                <%= event.location %>
+              </li>
+              <li>
+                <%= event.date.to_date.to_formatted_s :long_ordinal %>,
+                <%= event.date.strftime("%I:%M %p") %>
+              </li>
+            </ul>
           </small>
+
           <p><%= event.description %></p>
-          <hr>
-        <% end %>
+        <hr>
+      <% end %>
 
  </div>
 </div>

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get     'fees',     to:   'static_pages#fees'
   get     'help',     to:   'static_pages#help'
 
+  get     'past',     to:   'events#past'
+
   resources :events
   resources :users
   resources :invitations

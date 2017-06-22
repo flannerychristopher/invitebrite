@@ -1,0 +1,24 @@
+<h1>Past Events</h1>
+
+  <%= will_paginate @past_events %>
+
+    <% @past_events.each do |event| %>
+
+      <h3><%= link_to "#{event.title}", event_path(event) %></h3>
+
+      <small>
+        <ul>
+          <li>
+            <%= event.location %>
+          </li>
+          <li>
+            <%= event.date.to_date.to_formatted_s :long_ordinal %>,
+            <%= event.date.strftime("%I:%M %p") %>
+          </li>
+        </ul>
+      </small>
+
+      <p><%= event.description %></p>
+
+      <hr>
+    <% end %>
