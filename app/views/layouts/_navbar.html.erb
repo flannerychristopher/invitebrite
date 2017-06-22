@@ -18,12 +18,19 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LEARN MORE<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Fees</a></li>
-            <li><a href="#">How it works</a></li>
+            <li><%= link_to "Blog", blog_path %></li>
+            <li><%= link_to "Fees", fees_path %></li>
+            <li><%= link_to "How it works", help_path %></li>
           </ul>
 
-          <li><%= link_to "LOG IN", signin_path %></li>
+          <% if logged_in? %>
+            <li>logged in as: <%= current_user.name %></span><li>
+            <li><%= link_to "LOG OUT", signout_path, method: "delete" %></li>
+          <% else %>
+            <li><%= link_to "LOG IN", signin_path %></li>
+          <% end %>
+
+          <li><%= link_to "EVENTS", events_path %></li>
           <li><%= link_to "CREATE EVENT", new_event_path %></li>
         </li>
       </ul>

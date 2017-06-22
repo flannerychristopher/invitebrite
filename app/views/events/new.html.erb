@@ -1,7 +1,8 @@
-<h1>Create Event</h1>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+
+    <h1>Create Event</h1>
+
     <%= form_for(@event) do |f| %>
 
       <%= f.label :title %>
@@ -20,7 +21,7 @@
       <%= f.label :description %>
       <%= f.text_area :description, class: 'form-control' %>
 
-      <%= f.submit "Create" %>
+      <%= f.submit "Create", class: 'btn' %>
     <% end %>
 
   </div>
