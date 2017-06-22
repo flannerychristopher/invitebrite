@@ -8,6 +8,16 @@
 <h3>Description</h3>
   <p><%= @event.description %></p>
 
+<% if current_user == @event.creator %>
+  <h3>Send Invitation</h3>
+  <%= form_for @invitation do |f| %>
+    <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
+    <%= f.collection_select(:attendee_id, User.all, :id, :name) %>
+
+    <%= f.submit "Invite", class: "btn" %>
+  <% end %>
+<% end %>
+
 
 <% if @event.attendees.any? %>
 <h3>Attendees<h3>
