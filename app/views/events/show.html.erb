@@ -20,6 +20,9 @@
         <%= f.submit "Invite", class: "btn" %>
       <% end %>
     <% end %>
+
+    <%= render 'map' %>
+    
   </div>
 
 
@@ -38,3 +41,18 @@
       <% end %>
     </div>
   </div>
+
+
+
+
+
+<!--
+
+  <%= @event.location.gsub(/\s+/, "+") %>
+  <iframe
+    width="600"
+    height="450"
+    frameborder="0" style="border:0"
+    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCcYTjYdi9ttajSYh-f4UuF0L8erM5qKHA&q=<%= @event.location.gsub(/\s+/, "+") %>" allowfullscreen>
+  </iframe>
+-->
