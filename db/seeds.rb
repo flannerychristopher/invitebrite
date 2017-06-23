@@ -8,7 +8,7 @@
 
 #street = ["100 Main St.", "200 High St.", "300 Pine St."]
 #city = ["Melbourne, Australia", "Boston, Massachusetts", "Oakland, California"]
-addresses = %w[1111 Gough St, San Francisco, CA 94109, USA, 1150 Market St, San Francisco, CA 94102, USA, 425 Market St, San Francisco, CA 94105, USA, 5 Embarcadero Center, San Francisco, CA 94111, USA,1807 Telegraph Ave, Oakland, CA 94612, USA, 1001 Broadway, Oakland, CA 94607, USA,  1900 Broadway, Oakland, CA 94612, USA, 144 High St, Prahran VIC 3181, King St & Flinders St, Melbourne VIC 3000, 21 S Wharf Promenade, South Wharf VIC 3006,  513 Elizabeth St, Melbourne VIC 3000,  124 La Trobe St, Melbourne VIC 3000]
+addresses = ["1111 Gough St, San Francisco, CA 94109, USA", "1150 Market St, San Francisco, CA 94102, USA", "425 Market St, San Francisco, CA 94105, USA", "5 Embarcadero Center, San Francisco, CA 94111, USA","1807 Telegraph Ave, Oakland, CA 94612, USA", "1001 Broadway, Oakland, CA 94607, USA", "1900 Broadway, Oakland, CA 94612, USA, 144 High St, Prahran VIC 3181", "King St & Flinders St, Melbourne VIC 3000", "21 S Wharf Promenade, South Wharf VIC 3006", "513 Elizabeth St, Melbourne VIC 3000", "124 La Trobe St, Melbourne VIC 3000"]
 
 100.times do |n|
   name  = Faker::Name.name
@@ -39,7 +39,7 @@ User.count.times do |n|
 
   Event.count.times do |n|
     attended_event_id = Event.find(n + 1)
-    
+
     Invitation.create!(attendee:         attendee_id,
                        attended_event:   attended_event_id)
   end
