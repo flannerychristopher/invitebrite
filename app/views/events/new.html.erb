@@ -9,11 +9,14 @@
       <%= f.text_field :title, class: 'form-control'  %>
 
       <%= f.label :date %>
-      <%= f.datetime_select :date, :ampm => true,
+
+      <%= f.datetime_select :date,
+                            :ampm => true,
                             :minute_step => 15,
                             :start_year => Time.now.year,
                             :start_month => Time.now.month,
-                            :start_day => Time.now.day %>
+                            :start_day => Time.now.day, class: 'custom-select' %>
+
 
       <%= f.label :location %>
       <%= f.text_field :location, class: 'form-control' %>

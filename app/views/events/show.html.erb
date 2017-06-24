@@ -21,20 +21,23 @@
       <% end %>
     <% end %>
 
+
     <%= render 'map' %>
+  </div>
 
-
-  <div class="col-lg-2 col-md-2">
-
-    <% if @event.attendees.any? %>
-      <h3>Attendees</h3>
+  <div class="col-md-3">
+    <% if @event_attendees.any? %>
+      <h3>Invited</h3>
         <ul>
-          <% @event.attendees.each do |attendee| %>
+          <% @event_attendees.each do |attendee| %>
             <li>
               <%= link_to "#{attendee.name}", user_path(attendee) %>
             </li>
           <% end %>
         </ul>
       <% end %>
+
+      <%= will_paginate @event_attendees %>
     </div>
+
   </div>
