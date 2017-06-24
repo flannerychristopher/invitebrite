@@ -1,7 +1,5 @@
 <div id="map"></div>
-<script>
-  var GOOGLE_API_KEY=#{ENV['GOOGLE_API_KEY']}
-</script>
+
 <script>
 function initMap() {
   var uluru = {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
@@ -15,7 +13,6 @@ function initMap() {
   });
 }
 </script>
-
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap">
