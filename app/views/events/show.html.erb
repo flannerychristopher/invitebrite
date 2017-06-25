@@ -8,8 +8,7 @@
 
     <p>Location: <%= @event.location %></p>
 
-    <h3>Description</h3>
-      <p><%= @event.description %></p>
+
 
     <% if current_user == @event.creator %>
       <h3>Send Invitation</h3>
@@ -21,6 +20,20 @@
       <% end %>
     <% end %>
 
+    <% if @event.attendees.include?(current_user) %>
+      <p>reply to invitation</p>
+      <%= form_for @invitation, url: invitation_path(@invitation), method: :patch do |f| %>
+        <%= hidden_field_tag("invitation[attendee_id]", "#{current_user.id}") %>
+        <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
+        <%= hidden_field_tag("invitation[id]", "#{@invitation.id}") %>
+        <%= f.select :response, ['yes', 'no', 'maybe'] %>
+        <%= f.submit "Reply" %>
+      <% end %>
+    <% end %>
+
+
+    <h3>Description</h3>
+      <p><%= @event.description %></p>
 
     <%= render 'map' %>
   </div>

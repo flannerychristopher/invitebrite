@@ -1,6 +1,6 @@
 class CreateInvitations < ActiveRecord::Migration[5.1]
   def change
-    create_table :invitations, id: false do |t|
+    create_table :invitations do |t|
       t.integer :attendee_id
       t.integer :attended_event_id
     end

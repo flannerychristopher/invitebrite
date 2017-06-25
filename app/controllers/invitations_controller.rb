@@ -15,6 +15,19 @@ class InvitationsController < ApplicationController
     end
   end
 
+  def update
+    event = Event.find(invitation_params[:attended_event_id])
+    invitation = Invitation.find(params[:id])
+    invitation.response = invitation[:response]
+    if invitation.save
+      flash[:success] = "Reply sent!"
+      redirect_to event
+    else
+      flash.now[:danger] = "error"
+    end
+
+  end
+
   private
 
     def invitation_params
