@@ -21,7 +21,11 @@
     <% end %>
 
     <% if @event.attendees.include?(current_user) %>
-      <p>reply to invitation</p>
+      <% if @invitation.response.nil? %>
+        <p>reply to invitation</p>
+      <% else %>
+        <p>change response</p>
+      <% end %>
       <%= form_for @invitation, url: invitation_path(@invitation), method: :patch do |f| %>
         <%= hidden_field_tag("invitation[attendee_id]", "#{current_user.id}") %>
         <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>

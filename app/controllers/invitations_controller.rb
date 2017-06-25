@@ -18,7 +18,7 @@ class InvitationsController < ApplicationController
   def update
     event = Event.find(invitation_params[:attended_event_id])
     invitation = Invitation.find(params[:id])
-    invitation.response = invitation[:response]
+    invitation.response = invitation_params[:response]
     if invitation.save
       flash[:success] = "Reply sent!"
       redirect_to event
@@ -31,7 +31,7 @@ class InvitationsController < ApplicationController
   private
 
     def invitation_params
-      params.require(:invitation).permit(:attended_event_id, :attendee_id)
+      params.require(:invitation).permit(:attended_event_id, :attendee_id, :response)
     end
 
   end
