@@ -35,12 +35,14 @@ end
 end
 
 User.count.times do |n|
+  response = ['yes', 'no', 'maybe', 'invited', nil]
   attendee_id = User.find(Faker::Number.unique.between(1, User.count))
 
   Event.count.times do |n|
     attended_event_id = Event.find(n + 1)
 
     Invitation.create!(attendee:         attendee_id,
-                       attended_event:   attended_event_id)
+                       attended_event:   attended_event_id,
+                       response:         response.sample)
   end
 end

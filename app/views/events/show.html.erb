@@ -2,59 +2,17 @@
   <div class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">
 
     <h1><%= @event.title %></h1>
-    <p>created by: <%= @event.creator.name %></p>
+      <p>created by: <%= @event.creator.name %></p>
 
     <p>Date: <%= @event.date.to_date.to_formatted_s :long_ordinal %></p>
 
     <p>Location: <%= @event.location %></p>
 
-
-
-    <% if current_user == @event.creator %>
-      <h3>Send Invitation</h3>
-      <%= form_for @invitation do |f| %>
-        <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
-        <%= f.collection_select(:attendee_id, User.all, :id, :name) %>
-
-        <%= f.submit "Invite", class: "btn" %>
-      <% end %>
-    <% end %>
-
-    <% if @event.attendees.include?(current_user) %>
-      <% if @invitation.response.nil? %>
-        <p>reply to invitation</p>
-      <% else %>
-        <p>change response</p>
-      <% end %>
-      <%= form_for @invitation, url: invitation_path(@invitation), method: :patch do |f| %>
-        <%= hidden_field_tag("invitation[attendee_id]", "#{current_user.id}") %>
-        <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
-        <%= hidden_field_tag("invitation[id]", "#{@invitation.id}") %>
-        <%= f.select :response, ['yes', 'no', 'maybe'] %>
-        <%= f.submit "Reply" %>
-      <% end %>
-    <% end %>
-
+    <%= render 'invitations' %>
 
     <h3>Description</h3>
       <p><%= @event.description %></p>
 
-    <%= render 'map' %>
-  </div>
-
-  <div class="col-md-3">
-    <% if @event_attendees.any? %>
-      <h3>Invited</h3>
-        <ul>
-          <% @event_attendees.each do |attendee| %>
-            <li>
-              <%= link_to "#{attendee.name}", user_path(attendee) %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <%= will_paginate @event_attendees %>
-    </div>
-
+    <%= render 'attendees' %>
+    <!-- <%= render 'map' %> -->
   </div>

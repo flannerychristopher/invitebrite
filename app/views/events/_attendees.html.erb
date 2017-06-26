@@ -1,0 +1,35 @@
+<% if @yes_responses.any? %>
+  <h3>Attending</h3>
+    <% @yes_responses.each do |response| %>
+      <li>
+        <%= link_to "#{response.attendee.name}", user_path(response.attendee) %>
+      </li>
+    <% end %>
+<% end %>
+
+<% if @maybe_responses.any? %>
+  <h3>Maybe Attending</h3>
+    <% @maybe_responses.each do |response| %>
+      <li>
+        <%= link_to "#{response.attendee.name}", user_path(response.attendee) %>
+      </li>
+    <% end %>
+<% end %>
+
+<% if @no_responses.any? %>
+  <h3>Not Attending</h3>
+  <% @no_responses.each do |response| %>
+    <li>
+      <%= link_to "#{response.attendee.name}", user_path(response.attendee) %>
+    </li>
+  <% end %>
+<% end %>
+
+<% if @invited.any? %>
+  <h3>Invited</h3>
+  <% @invited.each do |response| %>
+    <li>
+      <%= link_to "#{response.attendee.name}", user_path(response.attendee) %>
+    </li>
+  <% end %>
+<% end %>
