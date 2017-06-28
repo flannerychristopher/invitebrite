@@ -18,7 +18,6 @@ class InvitationsController < ApplicationController
     invitation = event.invitations.find_by(attendee_id: current_user.id)
 
     if invitation.update_attributes!(invitation_params)
-      byebug
       flash[:success] = "Reply sent!"
       redirect_to event
     else
