@@ -2,8 +2,6 @@ class EventsController < ApplicationController
   before_action :logged_in_user, only: [:create]
 
   def index
-    #@events = Event.all
-    #@events = Event.paginate(page: params[:page], per_page: 5)
     @future_events = Event.future.paginate(page: params[:page], per_page: 5)
     @past_events = Event.past.reverse.last(5)
   end
@@ -20,7 +18,7 @@ class EventsController < ApplicationController
     @event = current_user.created_events.build(event_params)
     if @event.save
       flash[:success] = "Event Created"
-      event.attendees << current_user
+      @event.attendees << current_user
       @invitation = Invitation.new
       redirect_to @event
     else
@@ -32,14 +30,12 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if logged_in?
-      @invitation = current_user.invitations.find_by(attended_event_id: @event.id)
+      @invitation = @event.invitations.find_by(attendee_id: current_user.id)
     else
       @invitation = Invitation.new
     end
 
     @new_invitation = Invitation.new
-
-    # @event_attendees = @event.attendees.paginate(page: params[:page], per_page: 10)
 
     @nil_resonses = @event.invitations.where(response: nil)
     @yes_responses = @event.invitations.where(response: 'yes')
