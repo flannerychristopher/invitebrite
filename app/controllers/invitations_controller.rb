@@ -5,7 +5,7 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    event = Event.find(invitation_params[:attended_event_id])
+    #event = Event.find(invitation_params[:attended_event_id])
     event.invitations.build(attendee_id: invitation_params[:attendee_id])
     if event.save
       redirect_to event
@@ -17,14 +17,22 @@ class InvitationsController < ApplicationController
 
   def update
     event = Event.find(invitation_params[:attended_event_id])
-    invitation = Invitation.find(params[:id])
-    invitation.response = invitation_params[:response]
-    if invitation.save
+    invitation = Invitation.find_by(invitation_params[:id])
+    # invitation.response = invitation_params[:response]
+    # if invitation.update_attributes(:response => invitation_params[:response])
+    if invitation.update_attributes(invitation_params)
+      invitation.save
+      byebug
       flash[:success] = "Reply sent!"
       redirect_to event
     else
       flash.now[:danger] = "error"
     end
+
+    # invitation.update(invitation_params)
+    # invitation.reload
+    # byebug
+    # redirect_to event
 
   end
 

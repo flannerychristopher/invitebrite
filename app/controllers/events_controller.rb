@@ -30,8 +30,17 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @invitation = @event.invitations.find(params[:id])
+
+    if logged_in?
+      @invitation = current_user.invitations.find_by(attended_event_id: @event.id)
+    else
+      @invitation = Invitation.new
+    end
+
+    @new_invitation = Invitation.new
+
     # @event_attendees = @event.attendees.paginate(page: params[:page], per_page: 10)
+
     @nil_resonses = @event.invitations.where(response: nil)
     @yes_responses = @event.invitations.where(response: 'yes')
     @invited = @event.invitations.where(response: 'invited')
@@ -43,8 +52,7 @@ class EventsController < ApplicationController
   private
 
       def event_params
-        params.require(:event).permit(:title, :date, :location,
-                                     :description)
+        params.require(:event).permit(:title, :date, :location, :description)
       end
 
 

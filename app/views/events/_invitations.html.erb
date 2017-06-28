@@ -1,11 +1,8 @@
 <% if current_user == @event.creator %>
   <h3>Send Invitation</h3>
-  <%= form_for @invitation do |f| %>
+  <%= form_for @new_invitation do |f| %>
     <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
     <%= f.collection_select(:attendee_id, @not_invited, :id, :attendee_id) %>
-
-
-
 
     <%= f.submit "Invite", class: "btn" %>
   <% end %>
@@ -19,19 +16,22 @@
 
 
 <% unless current_user == @event.creator %>
-  <%= form_for @invitation, url: invitation_path(@invitation), method: :patch do |f| %>
-    <% if @event.attendees.include?(current_user) %>
+  <% if @event.attendees.include?(current_user) %>
+    <%= form_for @invitation, url: invitation_path(@invitation), method: :put do |f| %>
+
+      <%= f.hidden_field :attended_event_id, :value => "#{@event.id}" %>
+      <%= f.hidden_field :attendee_id, :value => "#{current_user.id}" %>
+
       <% if @invitation.response.nil? %>
         <%= f.label :response, "reply to invitation" %>
       <% else %>
         <%= f.label :response, "change response" %>
       <% end %>
 
-      <%= hidden_field_tag("invitation[attendee_id]", "#{current_user.id}") %>
-      <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
-      <%= hidden_field_tag("invitation[id]", "#{@invitation.id}") %>
       <%= f.select :response, ['yes', 'no', 'maybe'] %>
+
       <%= f.submit "Reply" %>
+      
     <% end %>
   <% end %>
 <% end %>
