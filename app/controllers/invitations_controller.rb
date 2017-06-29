@@ -4,8 +4,9 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    event.invitations.build(attendee_id: invitation_params[:attendee_id])
-    if event.save
+     event = Event.find(invitation_params[:attended_event_id])
+
+    if invitation = Invitation.create(invitation_params)
       redirect_to event
       flash[:success] = "Invitation sent!"
     else
