@@ -20,7 +20,7 @@ addresses = ["1111 Gough St, San Francisco, CA 94109, USA", "1150 Market St, San
                password_confirmation: password)
 end
 
-20.times do |n|
+20rails .times do |n|
   title = Faker::Hipster.sentence(1, false)
   description = Faker::Hipster.paragraph(2, false, 4)
   #location = Faker::Address.street_address + " " + Faker::Address.city

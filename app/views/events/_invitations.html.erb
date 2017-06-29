@@ -1,4 +1,4 @@
-<% if current_user == @event.creator %>
+<% if creator? %>
   <h3>Send Invitation</h3>
   <%= form_for @new_invitation do |f| %>
     <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
@@ -8,30 +8,26 @@
   <% end %>
 <% end %>
 
-
 <!-- <%= form_for @invitation do |f| %>
 <% users_array = Invitation.all.where(attended_event_id: @event.id).where(response: nil).map { |inv| [inv.attendee.name] } %>
 <%= options_for_select(users_array) %>
 <% end %> -->
 
+<% if invited? %>
+  <%= form_for @invitation, url: invitation_path(@invitation), method: :put do |f| %>
 
-<% unless current_user == @event.creator %>
-  <% if @event.attendees.include?(current_user) %>
-    <%= form_for @invitation, url: invitation_path(@invitation), method: :put do |f| %>
+    <%= f.hidden_field :attended_event_id, :value => "#{@event.id}" %>
+    <%= f.hidden_field :attendee_id, :value => "#{current_user.id}" %>
 
-      <%= f.hidden_field :attended_event_id, :value => "#{@event.id}" %>
-      <%= f.hidden_field :attendee_id, :value => "#{current_user.id}" %>
-
-      <% if @invitation.response.nil? %>
-        <%= f.label :response, "reply to invitation" %>
-      <% else %>
-        <%= f.label :response, "change response" %>
-      <% end %>
-
-      <%= f.select :response, ['yes', 'no', 'maybe'] %>
-
-      <%= f.submit "Reply" %>
-
+    <% if @invitation.response.nil? %>
+      <%= f.label :response, "reply to invitation" %>
+    <% else %>
+      <%= f.label :response, "change response" %>
     <% end %>
+
+    <%= f.select :response, ['yes', 'no', 'maybe'] %>
+
+    <%= f.submit "Reply" %>
+
   <% end %>
 <% end %>
