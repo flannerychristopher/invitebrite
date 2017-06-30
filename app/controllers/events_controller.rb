@@ -18,7 +18,8 @@ class EventsController < ApplicationController
     @event = current_user.created_events.build(event_params)
     if @event.save
       flash[:success] = "Event Created"
-      @event.attendees << current_user
+      @event.invitations.create(attendee_id: current_user.id, response: 'yes')
+
       @invitation = Invitation.new
       redirect_to @event
     else
@@ -37,10 +38,12 @@ class EventsController < ApplicationController
 
     @new_invitation = Invitation.new
 
-    @nil_resonses = @event.invitations.where(response: nil)
+    # @not_invited = Invitation.all.where(attended_event_id: @event.id).where(response: nil)
+    @not_invited = User.includes(:invitations).where( :invitations => { :id => nil } )
+
+    #@nil_resonses = @event.invitations.where(response: nil)
     @yes_responses = @event.invitations.where(response: 'yes')
     @invited = @event.invitations.where(response: 'invited')
-    @not_invited = Invitation.all.where(attended_event_id: @event.id).where(response: nil)
     @maybe_responses = @event.invitations.where(response: 'maybe')
     @no_responses = @event.invitations.where(response: 'no')
   end

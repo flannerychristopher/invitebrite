@@ -3,10 +3,8 @@
   <%= form_for @new_invitation do |f| %>
     <%= hidden_field_tag("invitation[attended_event_id]", "#{@event.id}") %>
     <%= hidden_field_tag("invitation[response]", "invited") %>
-    <%= f.collection_select(:attendee_id,
-                            User.all,
+    <%= f.collection_select(:attendee_id, @not_invited,
                             :id, :name) %>
-
 
     <%= f.submit "Invite", class: "btn" %>
   <% end %>
