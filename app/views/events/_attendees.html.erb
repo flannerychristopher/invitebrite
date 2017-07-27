@@ -1,10 +1,13 @@
 <% if @yes_responses.any? %>
   <h3>Attending</h3>
+  <div>
     <% @yes_responses.each do |response| %>
       <li>
         <%= link_to "#{response.attendee.name}", user_path(response.attendee) %>
       </li>
     <% end %>
+  </div>
+  <%= will_paginate @yes_responses, remote: true, param_name: "yes" %>
 <% end %>
 
 <% if @maybe_responses.any? %>

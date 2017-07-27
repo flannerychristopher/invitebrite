@@ -2,17 +2,21 @@
   <div class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">
 
     <h1><%= @event.title %></h1>
+
       <p>created by: <%= @event.creator.name %></p>
 
-    <p>Date: <%= @event.date.to_date.to_formatted_s :long_ordinal %></p>
+      <p>Date: <%= @event.date.to_date.to_formatted_s :long_ordinal %></p>
 
-    <p>Location: <%= @event.location %></p>
+      <p>Location: <%= @event.location %></p>
 
-    <%= render 'invitations' %>
+      <%= render 'invitations' %>
 
-    <h3>Description</h3>
-      <p><%= @event.description %></p>
+      <h3>Description</h3>
 
-    <%= render 'attendees' %>
-    <!-- <%= render 'map' %> -->
+        <p><%= @event.description %></p>
+
+        <div id="map"></div>
+
+        <%= render 'attendees' %>
+
   </div>

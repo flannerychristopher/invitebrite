@@ -19,7 +19,6 @@ class EventsController < ApplicationController
     if @event.save
       flash[:success] = "Event Created"
       @event.invitations.create(attendee_id: current_user.id, response: 'yes')
-
       @invitation = Invitation.new
       redirect_to @event
     else
@@ -37,12 +36,9 @@ class EventsController < ApplicationController
     end
 
     @new_invitation = Invitation.new
-
-    # @not_invited = Invitation.all.where(attended_event_id: @event.id).where(response: nil)
     @not_invited = User.includes(:invitations).where( :invitations => { :id => nil } )
 
-    #@nil_resonses = @event.invitations.where(response: nil)
-    @yes_responses = @event.invitations.where(response: 'yes')
+    @yes_responses = @event.invitations.where(response: 'yes').page(params[:yes])
     @invited = @event.invitations.where(response: 'invited')
     @maybe_responses = @event.invitations.where(response: 'maybe')
     @no_responses = @event.invitations.where(response: 'no')
@@ -50,9 +46,8 @@ class EventsController < ApplicationController
 
   private
 
-      def event_params
-        params.require(:event).permit(:title, :date, :location, :description)
-      end
-
+    def event_params
+      params.require(:event).permit(:title, :date, :location, :description)
+    end
 
 end
